@@ -6,11 +6,11 @@ const size_t SPECIAL_CHAR_SIZE = sizeof(SPECIAL_CHAR) / sizeof(SPECIAL_CHAR[0]);
 
 void echo(char value[])
 {
-	char *resultString;
-	if (value[0] == '-' && value[1] == 'e' && value[2] == ' ')
-	{
-		USE_SPECIAL = true;
-	}
+	char *resultString = NULL;
+	 if (strncmp(value, "-e ", 3) == 0) {
+        USE_SPECIAL = true;
+        value += 3; // Skip the "-e "
+    }
 	size_t valueSize = strlen(value);
 	for (size_t i = 0; i < valueSize; i++)
 	{
@@ -35,7 +35,7 @@ void echo(char value[])
 		}
 	}
 	 if (resultString != NULL) {
-        printf("%s\n", resultString);
+        printf("%s", resultString);
         free(resultString); 
     } else {
         printf("(empty result)\n");

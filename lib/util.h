@@ -5,6 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* expandString(const char *orginalString, char newCharacter);
+char *expandString(char *originalString, char newCharacter);
 
 #endif // UTIL_H
