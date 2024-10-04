@@ -6,12 +6,12 @@ const size_t SPECIAL_CHAR_SIZE = sizeof(SPECIAL_CHAR) / sizeof(SPECIAL_CHAR[0]);
 
 void echo(char value[])
 {
+	char *resultString;
 	if (value[0] == '-' && value[1] == 'e' && value[2] == ' ')
 	{
 		USE_SPECIAL = true;
 	}
 	size_t valueSize = strlen(value);
-
 	for (size_t i = 0; i < valueSize; i++)
 	{
 		char currentChar = value[i];
@@ -20,21 +20,26 @@ void echo(char value[])
 		{
 			if ((i + 1) < valueSize && value[i + 1] != ' ' && value[i + 1] != '\t' && value[i + 1] != '\n')
 			{
-				// printf("%c \n", value[i + 1]);
 				i++;
 				continue;
 			}
 			else
 			{
-				printf("%c", value[i]);
+				resultString = expandString(resultString, currentChar);
 			}
 		}
 		// handleSpecialChar(value, currentChar);
 		else
 		{
-			printf("%c", currentChar);
+			resultString = expandString(resultString, currentChar);
 		}
 	}
+	 if (resultString != NULL) {
+        printf("%s\n", resultString);
+        free(resultString); 
+    } else {
+        printf("(empty result)\n");
+    }
 }
 
 bool isSpecialChar(char value)
