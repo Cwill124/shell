@@ -9,4 +9,6 @@ void echo(char value[]);
 
 bool isSpecialChar(char value);
 
+void handleSpecialChar(char line[],char character,char nextCharacter);
+
 #endif // ECHO_H
