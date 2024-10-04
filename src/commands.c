@@ -1,6 +1,7 @@
 #include "commands.h"
+#include "echo.h"
 
-const char *COMMAND_ONLY_COMMANDS[] = {};
+const char *COMMAND_ONLY_COMMANDS[] = {CLEAR};
 const size_t COMMAND_ONLY_COMMANDS_SIZE = sizeof(COMMAND_ONLY_COMMANDS) / sizeof(COMMAND_ONLY_COMMANDS[0]);
 
 bool determineCommandType(char command[])
@@ -19,16 +20,21 @@ void determineCommand(char command[], char value[])
 {
 	if (strcmp(ECHO, command) == 0)
 	{
-		runEcho(command, value);
+		echo(value);
 	}
 }
 
 void determineCommandOnly(char command[])
 {
-	printf("%s", command);
+	if (strcmp(CLEAR, command) == 0)
+	{ //TODO: Make this a file
+#ifdef _WIN32
+		system("cls"); // For Windows
+#else
+		system("clear"); // For Unix/Linux
+#endif
+		fflush(stdout); // Optional: ensure all output is flushed before clearing
+	}
 }
 
-void runEcho(char command[], char value[])
-{
-	printf("%s\n", value);
-}
+

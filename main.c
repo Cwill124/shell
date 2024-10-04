@@ -14,12 +14,13 @@ void runCommand(char command[], char value[])
 	}
 	else
 	{
-		determineCommand(command,value);
+		determineCommand(command, value);
 	}
 }
 
 int main()
 {
+	system("@cls||clear");
 	printf("Shell in c by corey williams \n");
 
 	int running = 0;
@@ -28,18 +29,48 @@ int main()
 	{
 		char command[MAX_FIRST_CHAR];
 		char value[MAX_REST_CHAR];
-		scanf("%s", command);
-
-		getchar();
-
-		fgets(value, sizeof(value), stdin);
-
-		if (strlen(command) > MAX_FIRST_CHAR)
+		if (fgets(command, sizeof(command), stdin) == NULL)
 		{
-			printf("input was too long \n");
+			fprintf(stderr, "Error reading command.\n");
 			continue;
 		}
 
-		runCommand(command, value);
+		command[strcspn(command, "\n")] = 0;
+
+		if (strcmp(command, "exit") == 0)
+		{
+			break;
+		}
+
+		char *token = strtok(command, " ");
+		if (token != NULL)
+		{
+			strcpy(command, token);	  
+			token = strtok(NULL, " "); 
+			if (token != NULL)
+			{
+				strcpy(value, token); 
+				
+				token = strtok(NULL, "\n");
+				if (token != NULL)
+				{
+					strcat(value, " ");
+					strcat(value, token);
+				}
+			}
+			else
+			{
+				value[0] = '\0'; 
+			}
+
+			if (strlen(command) > MAX_FIRST_CHAR)
+			{
+				printf("input was too long \n");
+				continue;
+			}
+			command[strcspn(command, "\n")] = 0;
+
+			runCommand(command, value);
+		}
 	}
 }

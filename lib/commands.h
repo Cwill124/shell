@@ -2,11 +2,17 @@
 #define COMMAND_H
 
 #define ECHO "echo"
+#define CLEAR "clear"
 
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+extern const char *COMMAND_ONLY_COMMANDS[];
+extern const size_t COMMAND_ONLY_COMMANDS_SIZE;
 
 
 bool determineCommandType(char command[]);
