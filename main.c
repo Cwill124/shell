@@ -16,6 +16,7 @@ void runCommand(char command[], char value[])
 	{
 		determineCommand(command, value);
 	}
+	printf("\n");
 }
 
 int main()
@@ -27,6 +28,7 @@ int main()
 
 	while (running < 1)
 	{
+		printf(">> ");
 		char command[MAX_FIRST_CHAR];
 		char value[MAX_REST_CHAR];
 		if (fgets(command, sizeof(command), stdin) == NULL)

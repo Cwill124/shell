@@ -1,18 +1,22 @@
 #include "echo.h"
 
-const char SPECIAL_CHAR[] = {'\\'};
+const char SPECIAL_CHAR[] = {'\\', '-'};
+bool USE_SPECIAL = false;
 const size_t SPECIAL_CHAR_SIZE = sizeof(SPECIAL_CHAR) / sizeof(SPECIAL_CHAR[0]);
 
 void echo(char value[])
 {
+	if (value[0] == '-' && value[1] == 'e' && value[2] == ' ')
+	{
+		USE_SPECIAL = true;
+	}
 	size_t valueSize = strlen(value);
 
 	for (size_t i = 0; i < valueSize; i++)
 	{
 		char currentChar = value[i];
 		bool isSpecial = isSpecialChar(currentChar);
-
-		if (isSpecial)
+		if (isSpecial && USE_SPECIAL)
 		{
 			if ((i + 1) < valueSize && value[i + 1] != ' ' && value[i + 1] != '\t' && value[i + 1] != '\n')
 			{
@@ -26,11 +30,11 @@ void echo(char value[])
 			}
 		}
 		// handleSpecialChar(value, currentChar);
-	else
-	{
-		printf("%c", currentChar);
+		else
+		{
+			printf("%c", currentChar);
+		}
 	}
-}
 }
 
 bool isSpecialChar(char value)
