@@ -46,7 +46,7 @@ void echo(char value[])
 	}
 	if (resultString != NULL)
 	{
-		printf("%s finial Result", resultString);
+		printf("%s", resultString);
 		free(resultString);
 	}
 	else
@@ -75,9 +75,12 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 	{
 	case 'b':
 		resultString = removeWhiteSpace(currentString);
-		printf("%s \n", resultString);
 		break;
+	case 'n':
+		resultString = addNewLine(currentString);
 
+	case 't':
+		resultString = horizontalTabSpace(currentString);
 	default:
 		break;
 	}
@@ -91,11 +94,27 @@ char *removeWhiteSpace(char *currentString)
 	for (size_t i = 0; i < currentStringSize; i++)
 	{
 		char currentChar = currentString[i];
-		printf("%c \n",currentChar);
+		printf("%c \n", currentChar);
 		if (currentChar == ' ')
 		{
 			resultString = removeCharacter(resultString, i);
 		}
 	}
+	return resultString;
+}
+
+char *addNewLine(char *currentString)
+{
+	return expandString(currentString, '\n');
+}
+
+char *horizontalTabSpace(char *currentString)
+{
+	char *resultString = currentString;
+	for (int i = 0; i < TAB_SPACE; i++)
+	{
+		resultString = expandString(currentString, ' ');
+	}
+
 	return resultString;
 }
