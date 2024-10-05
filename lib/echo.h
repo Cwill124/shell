@@ -10,5 +10,9 @@ void echo(char value[]);
 
 bool isSpecialChar(char value);
 
+char *handleBackSlashCommand(char *currentString, char commandChar);
+
+char *removeWhiteSpace(char *currentString);
+
 
 #endif // ECHO_H

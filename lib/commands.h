@@ -2,7 +2,7 @@
 #define COMMAND_H
 
 #define ECHO "echo"
-#define CLEAR "clear"
+#define CLEAR "cls"
 
 
 #include <stdbool.h>

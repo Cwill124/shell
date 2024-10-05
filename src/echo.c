@@ -25,7 +25,7 @@ void echo(char value[])
 				switch (currentChar)
 				{
 				case '\\':
-					handleBackSlashCommand(resultString, value[i]);
+					resultString = handleBackSlashCommand(resultString, value[i]);
 					break;
 
 				default:
@@ -46,13 +46,12 @@ void echo(char value[])
 	}
 	if (resultString != NULL)
 	{
-		// printf("%s", resultString);
-		printf("%s\n", removeCharacter(resultString, 3));
+		printf("%s finial Result", resultString);
 		free(resultString);
 	}
 	else
 	{
-		printf("(empty result)\n");
+		printf("(empty result)");
 	}
 }
 
@@ -76,13 +75,27 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 	{
 	case 'b':
 		resultString = removeWhiteSpace(currentString);
+		printf("%s \n", resultString);
 		break;
 
 	default:
 		break;
 	}
+	return resultString;
 }
 
 char *removeWhiteSpace(char *currentString)
 {
+	char *resultString = currentString;
+	size_t currentStringSize = strlen(currentString);
+	for (size_t i = 0; i < currentStringSize; i++)
+	{
+		char currentChar = currentString[i];
+		printf("%c \n",currentChar);
+		if (currentChar == ' ')
+		{
+			resultString = removeCharacter(resultString, i);
+		}
+	}
+	return resultString;
 }
