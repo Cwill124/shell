@@ -46,6 +46,7 @@ void echo(char value[])
 	}
 	if (resultString != NULL)
 	{
+		printStringDebug(resultString);
 		printf("%s", resultString);
 		free(resultString);
 	}
@@ -53,6 +54,7 @@ void echo(char value[])
 	{
 		printf("(empty result)");
 	}
+	USE_SPECIAL = false;
 }
 
 bool isSpecialChar(char value)
@@ -77,7 +79,9 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 		resultString = removeWhiteSpace(currentString);
 		break;
 	case 'n':
+		
 		resultString = addNewLine(currentString);
+		
 
 	case 't':
 		resultString = horizontalTabSpace(currentString);
@@ -89,15 +93,14 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 
 char *removeWhiteSpace(char *currentString)
 {
-	char *resultString = currentString;
+	char *resultString = NULL;
 	size_t currentStringSize = strlen(currentString);
 	for (size_t i = 0; i < currentStringSize; i++)
 	{
 		char currentChar = currentString[i];
-		printf("%c \n", currentChar);
-		if (currentChar == ' ')
+		if (currentChar != ' ' && currentChar != '\t')
 		{
-			resultString = removeCharacter(resultString, i);
+			resultString = expandString(resultString, currentChar);
 		}
 	}
 	return resultString;

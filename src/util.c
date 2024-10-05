@@ -28,7 +28,6 @@ char *expandString(char *originalString, char newCharacter)
     }
     expandedString[originalStringSize] = newCharacter;
     expandedString[originalStringSize + 1] = '\0';
-
     return expandedString;
 }
 
@@ -51,4 +50,10 @@ char *removeCharacter(char *originalString, size_t index)
         }
     }
     return newString;
+}
+
+void printStringDebug(char *str) {
+    for (size_t i = 0; str[i] != '\0'; i++) {
+        printf("Character: '%c' (ASCII: %d)\n", str[i], str[i]);
+    }
 }

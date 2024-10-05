@@ -9,4 +9,7 @@ char *expandString(char *originalString, char newCharacter);
 
 char *removeCharacter(char *originalString, size_t index);
 
+
+
+void printStringDebug(char *str);
 #endif // UTIL_H
