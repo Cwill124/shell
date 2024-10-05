@@ -7,10 +7,11 @@ const size_t SPECIAL_CHAR_SIZE = sizeof(SPECIAL_CHAR) / sizeof(SPECIAL_CHAR[0]);
 void echo(char value[])
 {
 	char *resultString = NULL;
-	 if (strncmp(value, "-e ", 3) == 0) {
-        USE_SPECIAL = true;
-        value += 3; // Skip the "-e "
-    }
+	if (strncmp(value, "-e ", 3) == 0)
+	{
+		USE_SPECIAL = true;
+		value += 3; // Skip the "-e "
+	}
 	size_t valueSize = strlen(value);
 	for (size_t i = 0; i < valueSize; i++)
 	{
@@ -21,6 +22,16 @@ void echo(char value[])
 			if ((i + 1) < valueSize && value[i + 1] != ' ' && value[i + 1] != '\t' && value[i + 1] != '\n')
 			{
 				i++;
+				switch (currentChar)
+				{
+				case '\\':
+					handleBackSlashCommand(resultString, value[i]);
+					break;
+
+				default:
+					break;
+				}
+
 				continue;
 			}
 			else
@@ -28,18 +39,21 @@ void echo(char value[])
 				resultString = expandString(resultString, currentChar);
 			}
 		}
-		// handleSpecialChar(value, currentChar);
 		else
 		{
 			resultString = expandString(resultString, currentChar);
 		}
 	}
-	 if (resultString != NULL) {
-        printf("%s", resultString);
-        free(resultString); 
-    } else {
-        printf("(empty result)\n");
-    }
+	if (resultString != NULL)
+	{
+		// printf("%s", resultString);
+		printf("%s\n", removeCharacter(resultString, 3));
+		free(resultString);
+	}
+	else
+	{
+		printf("(empty result)\n");
+	}
 }
 
 bool isSpecialChar(char value)
@@ -55,10 +69,20 @@ bool isSpecialChar(char value)
 	return false;
 }
 
-void handleSpecialChar(char line[], char character, char nextCharacter)
+char *handleBackSlashCommand(char *currentString, char commandChar)
 {
-	if (character == SPECIAL_CHAR[0])
+	char *resultString = NULL;
+	switch (commandChar)
 	{
-		printf("WAS BACKSLASH");
+	case 'b':
+		resultString = removeWhiteSpace(currentString);
+		break;
+
+	default:
+		break;
 	}
+}
+
+char *removeWhiteSpace(char *currentString)
+{
 }

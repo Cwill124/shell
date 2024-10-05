@@ -1,11 +1,14 @@
 #include "util.h"
 
-char *expandString(char *originalString, char newCharacter) {
+char *expandString(char *originalString, char newCharacter)
+{
 
-    if (originalString == NULL) {
-    
+    if (originalString == NULL)
+    {
+
         char *expandedString = (char *)malloc(2);
-        if (expandedString == NULL) {
+        if (expandedString == NULL)
+        {
             fprintf(stderr, "Memory allocation failed\n");
             return NULL;
         }
@@ -14,12 +17,12 @@ char *expandString(char *originalString, char newCharacter) {
         return expandedString;
     }
 
-   
     size_t originalStringSize = strlen(originalString);
-    size_t newSize = originalStringSize + 2; 
-  
+    size_t newSize = originalStringSize + 2;
+
     char *expandedString = (char *)realloc(originalString, newSize);
-    if (expandedString == NULL) {
+    if (expandedString == NULL)
+    {
         fprintf(stderr, "Memory allocation failed\n");
         return NULL;
     }
@@ -27,4 +30,25 @@ char *expandString(char *originalString, char newCharacter) {
     expandedString[originalStringSize + 1] = '\0';
 
     return expandedString;
+}
+
+char *removeCharacter(char *originalString, size_t index)
+{
+    if (originalString == NULL)
+    {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
+    char *newString = NULL;
+    size_t originalStringSize = strlen(originalString);
+
+    for (size_t i = 0; i < originalStringSize; i++)
+    {
+        char currentChar = originalString[i];
+        if (i != index)
+        {
+            newString = expandString(newString,currentChar);
+        }
+    }
+    return newString;
 }
