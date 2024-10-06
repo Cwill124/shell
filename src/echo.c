@@ -88,7 +88,7 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 		resultString = verticalTabSpace(currentString);
 		VERTICAL_TAB_COUNT++;
 	default:
-		break;
+		resultString = expandString(currentString,commandChar);
 	}
 	return resultString;
 }
