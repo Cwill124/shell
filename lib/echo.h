@@ -19,4 +19,7 @@ char *removeWhiteSpace(char *currentString);
 char *addNewLine(char *currentString);
 
 char *horizontalTabSpace(char *currentString);
+
+char *verticalTabSpace(char *currentString);
+
 #endif // ECHO_H

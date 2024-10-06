@@ -4,6 +4,8 @@ const char SPECIAL_CHAR[] = {'\\', '-'};
 bool USE_SPECIAL = false;
 const size_t SPECIAL_CHAR_SIZE = sizeof(SPECIAL_CHAR) / sizeof(SPECIAL_CHAR[0]);
 
+int VERTICAL_TAB_COUNT = 1;
+
 void echo(char value[])
 {
 	char *resultString = NULL;
@@ -46,7 +48,6 @@ void echo(char value[])
 	}
 	if (resultString != NULL)
 	{
-		printStringDebug(resultString);
 		printf("%s", resultString);
 		free(resultString);
 	}
@@ -54,6 +55,7 @@ void echo(char value[])
 	{
 		printf("(empty result)");
 	}
+	VERTICAL_TAB_COUNT = 1;
 	USE_SPECIAL = false;
 }
 
@@ -79,12 +81,12 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 		resultString = removeWhiteSpace(currentString);
 		break;
 	case 'n':
-		
 		resultString = addNewLine(currentString);
-		
-
 	case 't':
 		resultString = horizontalTabSpace(currentString);
+	case 'v':
+		resultString = verticalTabSpace(currentString);
+		VERTICAL_TAB_COUNT++;
 	default:
 		break;
 	}
@@ -105,7 +107,6 @@ char *removeWhiteSpace(char *currentString)
 	}
 	return resultString;
 }
-
 char *addNewLine(char *currentString)
 {
 	return expandString(currentString, '\n');
@@ -120,4 +121,15 @@ char *horizontalTabSpace(char *currentString)
 	}
 
 	return resultString;
+}
+char *verticalTabSpace(char *currentString)
+{
+	char *resultString = currentString;
+	resultString = addNewLine(resultString);
+	for (size_t i = 0; i < VERTICAL_TAB_COUNT; i++)
+	{
+		resultString = horizontalTabSpace(resultString);
+	}
+	return resultString;
+	
 }

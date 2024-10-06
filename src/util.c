@@ -46,14 +46,16 @@ char *removeCharacter(char *originalString, size_t index)
         char currentChar = originalString[i];
         if (i != index)
         {
-            newString = expandString(newString,currentChar);
+            newString = expandString(newString, currentChar);
         }
     }
     return newString;
 }
 
-void printStringDebug(char *str) {
-    for (size_t i = 0; str[i] != '\0'; i++) {
+void printStringDebug(char *str)
+{
+    for (size_t i = 0; str[i] != '\0'; i++)
+    {
         printf("Character: '%c' (ASCII: %d)\n", str[i], str[i]);
     }
 }
