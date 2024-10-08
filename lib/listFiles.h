@@ -1,6 +1,11 @@
 #ifndef LIST_FILES_H
 #define LIST_FILES_H
 
+#define DISPLAY_ONE_LINE '1'
+
+
+
+
 #include <stdio.h>
 #include <string.h>
 #include <dirent.h>
@@ -15,6 +20,9 @@ void ls(char value[]);
 
 void openCurrentDirectory(char command);
 
-void readDirectoryBasic(DIR *folder);
+void handleSpecialCommand(char command);
+
+
+void readDirectoryBasic(DIR *folder,int perLine);
 
 #endif

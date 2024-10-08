@@ -16,22 +16,25 @@ void ls(char value[])
 	}
 	if (commandFlag)
 	{
-		printf("TODO handle command flag");
-		printf("handle flag \n");
 		char *directory = subString(value, 3);
+		char command = value[1];
 		if (directory == NULL)
 		{
+			openCurrentDirectory(command);
 			return;
 		}
-		printf("%s", directory);
-		return;
+		CURRENT_DIRECTORY = directory;
+		openCurrentDirectory(command);
 	}
 	else
 	{
 		CURRENT_DIRECTORY = value;
 		openCurrentDirectory('\0');
 	}
+	CURRENT_DIRECTORY = ".";
 }
+
+
 
 void openCurrentDirectory(char command)
 {
@@ -42,15 +45,22 @@ void openCurrentDirectory(char command)
 		printf("error reading directory\n");
 		return;
 	}
-	if (command == '\0')
+	switch (command)
 	{
-		readDirectoryBasic(folder);
+	case '\0':
+		readDirectoryBasic(folder, 4);
+		break;
+	case DISPLAY_ONE_LINE:
+		readDirectoryBasic(folder, 1);
+		break;
+	default:
+		break;
 	}
 
 	closedir(folder);
 }
 
-void readDirectoryBasic(DIR *folder)
+void readDirectoryBasic(DIR *folder, int perLine)
 {
 	struct dirent *file;
 	int fileCount = 0;
@@ -68,7 +78,7 @@ void readDirectoryBasic(DIR *folder)
 			printf(ANSI_COLOR_CYAN "%-15s" ANSI_COLOR_RESET, file->d_name);
 		}
 
-		if (fileCount % 4 == 0)
+		if (fileCount % perLine == 0)
 		{
 			printf("\n");
 			fileCount = 0;

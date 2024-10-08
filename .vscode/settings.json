@@ -4,6 +4,8 @@
 		"echo.h": "c",
 		"util.h": "c",
 		"time.h": "c",
-		"stat.h": "c"
+		"stat.h": "c",
+		"stdbool.h": "c",
+		"dirent.h": "c"
 	}
 }
