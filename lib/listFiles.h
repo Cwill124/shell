@@ -8,5 +8,9 @@
 #include <time.h>
 
 
-char* readCurrentDirectory(char* currentString);
+void ls(char value[]);
+
+
+char* readCurrentDirectory();
+
 #endif

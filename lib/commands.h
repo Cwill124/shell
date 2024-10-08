@@ -3,6 +3,7 @@
 
 #define ECHO "echo"
 #define CLEAR "cls"
+#define LS "ls"
 
 
 #include <stdbool.h>
@@ -10,6 +11,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "echo.h"
+#include "listFiles.h"
 
 extern const char *COMMAND_ONLY_COMMANDS[];
 extern const size_t COMMAND_ONLY_COMMANDS_SIZE;

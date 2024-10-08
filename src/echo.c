@@ -11,7 +11,7 @@ void echo(char value[])
 {
 	char *resultString = NULL;
 	if(strncmp(value,"*",1) == 0){
-		readCurrentDirectory(resultString);
+		readCurrentDirectory();
 		return;
 	}
 	if (strncmp(value, "-e ", 3) == 0)

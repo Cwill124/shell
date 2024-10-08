@@ -1,5 +1,5 @@
 #include "commands.h"
-#include "echo.h"
+
 
 const char *COMMAND_ONLY_COMMANDS[] = {CLEAR};
 const size_t COMMAND_ONLY_COMMANDS_SIZE = sizeof(COMMAND_ONLY_COMMANDS) / sizeof(COMMAND_ONLY_COMMANDS[0]);
@@ -21,6 +21,8 @@ void determineCommand(char command[], char value[])
 	if (strcmp(ECHO, command) == 0)
 	{
 		echo(value);
+	} else if(strcmp(LS,command) == 0) {
+		ls(value);
 	}
 }
 
