@@ -82,11 +82,15 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 		break;
 	case 'n':
 		resultString = addNewLine(currentString);
+		resultString = removeWhiteSpace(resultString);
+		break;
 	case 't':
 		resultString = horizontalTabSpace(currentString);
+		break;
 	case 'v':
 		resultString = verticalTabSpace(currentString);
 		VERTICAL_TAB_COUNT++;
+		break;
 	default:
 		resultString = expandString(currentString,commandChar);
 	}
