@@ -91,12 +91,18 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 		resultString = verticalTabSpace(currentString);
 		VERTICAL_TAB_COUNT++;
 		break;
+	case 'a':
+		resultString = currentString;
+		alertSound();
+		break;	
 	default:
 		resultString = expandString(currentString,commandChar);
 	}
 	return resultString;
 }
-
+void alertSound() {
+	printf("\a");
+}
 char *removeWhiteSpace(char *currentString)
 {
 	char *resultString = NULL;

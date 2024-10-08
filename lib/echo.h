@@ -180,4 +180,6 @@ char *horizontalTabSpace(char *currentString);
  */
 char *verticalTabSpace(char *currentString);
 
+void alertSound();
+
 #endif // ECHO_H
