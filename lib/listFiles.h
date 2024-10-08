@@ -7,7 +7,8 @@
 #include <sys/stat.h>
 #include <time.h>
 #include "util.h"
-
+#include "color.h"
+#include <stdbool.h>
 
 void ls(char value[]);
 

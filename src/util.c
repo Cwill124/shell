@@ -59,3 +59,21 @@ void printStringDebug(char *str)
         printf("Character: '%c' (ASCII: %d)\n", str[i], str[i]);
     }
 }
+
+char *subString(const char *string, int start) {
+    if (start < 0 || start >= strlen(string)) {
+        return NULL; 
+    }
+
+    int length = strlen(string) - start;
+    
+    char* sub = (char*)malloc(length + 1);
+    if (sub == NULL) {
+        return NULL; 
+    }
+
+    strncpy(sub, string + start, length);
+    sub[length] = '\0'; // Null-terminate the substring
+
+    return sub;
+}
