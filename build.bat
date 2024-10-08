@@ -2,7 +2,7 @@
 REM Compile the C files for the shell application
 
 
-SET SRC_FILES=main.c src/commands.c
+SET SRC_FILES=main.c src/commands.c src/echo.c src/util.c src/listFiles.C
 SET OUTPUT=shell
 SET INCLUDE_DIR=./lib
 
