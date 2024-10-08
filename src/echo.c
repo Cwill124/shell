@@ -49,6 +49,7 @@ void echo(char value[])
 	if (resultString != NULL)
 	{
 		printf("%s", resultString);
+		resultString = NULL;
 		free(resultString);
 	}
 	else
@@ -94,7 +95,10 @@ char *handleBackSlashCommand(char *currentString, char commandChar)
 	case 'a':
 		resultString = currentString;
 		alertSound();
-		break;	
+		break;
+	case 'r':
+		resultString = NULL;
+		break;		
 	default:
 		resultString = expandString(currentString,commandChar);
 	}
