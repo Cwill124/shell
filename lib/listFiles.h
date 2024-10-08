@@ -6,11 +6,14 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <time.h>
+#include "util.h"
 
 
 void ls(char value[]);
 
 
-char* readCurrentDirectory();
+void openCurrentDirectory(char command);
+
+void readDirectoryBasic(DIR *folder);
 
 #endif
