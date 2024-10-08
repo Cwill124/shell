@@ -19,6 +19,10 @@ void ls(char value[])
 		printf("TODO handle command flag");
 		printf("handle flag \n");
 		char *directory = subString(value, 3);
+		if (directory == NULL)
+		{
+			return;
+		}
 		printf("%s", directory);
 		return;
 	}
@@ -53,14 +57,17 @@ void readDirectoryBasic(DIR *folder)
 	while ((file = readdir(folder)))
 	{
 		fileCount++;
-		if (file->d_type == 16)
+		struct stat filestat = getFileStat(file->d_name);
+
+		if (S_ISDIR(filestat.st_mode))
 		{
-			printf(ANSI_COLOR_MAGENTA "%-20s" ANSI_COLOR_RESET, file->d_name);
+			printf(ANSI_COLOR_GREEN "%-15s" ANSI_COLOR_RESET, file->d_name);
 		}
 		else
 		{
-			printf(ANSI_COLOR_GREEN "%-20s" ANSI_COLOR_RESET, file->d_name);
+			printf(ANSI_COLOR_CYAN "%-15s" ANSI_COLOR_RESET, file->d_name);
 		}
+
 		if (fileCount % 4 == 0)
 		{
 			printf("\n");

@@ -60,16 +60,27 @@ void printStringDebug(char *str)
     }
 }
 
-char *subString(const char *string, int start) {
-    if (start < 0 || start >= strlen(string)) {
-        return NULL; 
+struct stat getFileStat(char *fileName)
+{
+    struct stat filestat;
+    stat(fileName, &filestat);
+
+    return filestat;
+}
+
+char *subString(const char *string, int start)
+{
+    if (start < 0 || start >= strlen(string))
+    {
+        return NULL;
     }
 
     int length = strlen(string) - start;
-    
-    char* sub = (char*)malloc(length + 1);
-    if (sub == NULL) {
-        return NULL; 
+
+    char *sub = (char *)malloc(length + 1);
+    if (sub == NULL)
+    {
+        return NULL;
     }
 
     strncpy(sub, string + start, length);
