@@ -1,4 +1,5 @@
 #include "echo.h"
+#include "listFiles.h"
 
 const char SPECIAL_CHAR[] = {'\\', '-'};
 bool USE_SPECIAL = false;
@@ -9,6 +10,10 @@ int VERTICAL_TAB_COUNT = 1;
 void echo(char value[])
 {
 	char *resultString = NULL;
+	if(strncmp(value,"*",1) == 0){
+		readCurrentDirectory(resultString);
+		return;
+	}
 	if (strncmp(value, "-e ", 3) == 0)
 	{
 		USE_SPECIAL = true;
