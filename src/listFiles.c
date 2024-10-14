@@ -33,7 +33,6 @@ void ls(char value[])
 	}
 	CURRENT_DIRECTORY = ".";
 }
-
 void openCurrentDirectory(char command)
 {
 	DIR *folder;
@@ -53,6 +52,9 @@ void openCurrentDirectory(char command)
 			break;
 		case 'l':
 			readDirectoryBasic(folder,1,true);
+			break;
+		case 't': 
+			readDirectoryForSorting(folder);
 			break;
 		default:
 			break;
@@ -93,6 +95,48 @@ void readDirectoryBasic(DIR *folder, int perLine, bool displayInfo)
 		}
 	}
 }
+void readDirectoryForSorting(DIR *folder) {
+
+	int currentSize = sizeOfDirectory(folder);
+
+	struct fileInfo *files = malloc(currentSize * sizeof(struct fileInfo));
+
+	struct dirent* file;
+	int i = 0;
+	while (( file = readdir(folder))) {
+		if(strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0) { continue;}
+		struct stat filestat = getFileStat(file->d_name);
+			files[i].filename = strdup(file->d_name);
+			if(!files[i].filename) { perror("Failed to allocate memory for filename"); free(files); return;}
+			files[i].filesize = filestat.st_size;
+			files[i].lastModifiedDate = getLastModifiedTime(filestat);
+			i++;
+	}
+	for (size_t j = 0; j < i; j++) {
+        printf("Filename: %s, Size: %lld bytes, Last Modified: %s\n",
+               files[j].filename, files[j].filesize,
+               files[j].lastModifiedDate);
+        free(files[j].filename); // Free each filename
+    }
+}
+
+int sizeOfDirectory(DIR *folder) {
+    int count = 0;
+    struct dirent *file;
+
+    // Count the entries
+    while ((file = readdir(folder))) {
+        if (strcmp(file->d_name, ".") != 0 && strcmp(file->d_name, "..") != 0) {
+            count++;
+        }
+    }
+
+    // Rewind the directory stream to the beginning for further reading
+    rewinddir(folder);
+    
+    return count;
+}
+
 char* getLastModifiedTime(struct stat fileStat) {
 	time_t modTime = fileStat.st_mtime;
 
@@ -108,7 +152,6 @@ long getFileSize(struct stat fileStat) {
 
 	long fileSize = fileStat.st_size;
 	return fileSize;
-
 }
 char **getLastEditedFile(DIR *folder)
 {

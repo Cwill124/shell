@@ -15,6 +15,14 @@
 #include "color.h"
 #include <stdbool.h>
 
+typedef struct fileInfo { 
+	char* filename;
+	long filesize;
+	char* lastModifiedDate;
+
+
+} fileInfo;
+
 void ls(char value[]);
 
 
@@ -30,5 +38,8 @@ char* getLastModifiedTime(struct stat fileStat);
 
 long getFileSize(struct stat fileStat);
 
+void readDirectoryForSorting(DIR * folder);
+
+int sizeOfDirectory(DIR *folder);
 
 #endif
