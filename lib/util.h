@@ -15,7 +15,6 @@ char *subString(const char *string, int start);
 
 void printStringDebug(char *str);
 
-struct stat getFileStat(char* fileName);
-
+struct stat getFileStat(char *fileName);
 
 #endif // UTIL_H
