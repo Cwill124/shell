@@ -70,11 +70,13 @@ void readDirectoryBasic(DIR *folder, int perLine, bool displayInfo)
 		fileCount++;
 		struct stat filestat = getFileStat(file->d_name);
 		if(displayInfo){
+			long fileSize = getFileSize(filestat);
 			char* info =getLastModifiedTime(filestat);
-			printf("%s,info);
-
+			printf("%lld %s ",fileSize,info);
 
 		}
+
+
 		if (S_ISDIR(filestat.st_mode))
 		{
 			printf(ANSI_COLOR_GREEN "%-15s" ANSI_COLOR_RESET, file->d_name);
@@ -101,6 +103,12 @@ char* getLastModifiedTime(struct stat fileStat) {
 	strftime(timeString, sizeof(timeString), "%Y-%m-%d %H:%M:%S", localTime);
 
 	return timeString;
+}
+long getFileSize(struct stat fileStat) {
+
+	long fileSize = fileStat.st_size;
+	return fileSize;
+
 }
 char **getLastEditedFile(DIR *folder)
 {

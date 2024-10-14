@@ -23,8 +23,12 @@ void openCurrentDirectory(char command);
 void handleSpecialCommand(char command);
 
 void readDirectoryBasic(DIR *folder,int perLine,bool displayInfo);
+
 char **getLastEditedFile(DIR *folder);
 
 char* getLastModifiedTime(struct stat fileStat);
+
+long getFileSize(struct stat fileStat);
+
 
 #endif
